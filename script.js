@@ -7,7 +7,7 @@ const cardObjectDefinitions = [
 ];
 
 const cardBackImgPath = './images/card-back-blue.png';
-const cardContainerElem = document.querySelector('.card-container')
+const cardContainerElem = document.querySelector('.card-container');
 
     // < div class="card" >
     //     <div class="card-inner">
@@ -19,7 +19,16 @@ const cardContainerElem = document.querySelector('.card-container')
     //         </div>
     //     </div>
     // </div >
-//the above html is what we are trying to do dynamically through JS below with createCard function!
+//the above html is what we are trying to do dynamically through JS below!
+createCards();
+
+function createCards() {
+
+    cardObjectDefinitions.forEach((cardItem)=>{
+        createCard(cardItem)
+    })
+};
+
 function createCard(cardItem) {
 
     //create div elements that make up a card
@@ -72,7 +81,8 @@ function createCard(cardItem) {
     //add inner card element as child element to card element
     addChildElement(cardElem, cardInnerElem)
 
-
+    //add card element as child element to appropriate grid cell
+    addCardToGridCell(cardElem)
 
 }
 function createElement(elemType) {
@@ -89,4 +99,24 @@ function addSrcToImageElem(imgElem, src) {
 }
 function addChildElement(parentElem, childElem) {
     parentElem.appendChild(childElem);
+}
+
+function addCardToGridCell(card) 
+{
+    const cardPositionClassName = mapCardIdToGridCell(card);
+
+    const cardPosElem = document.querySelector(cardPositionClassName);
+
+    addChildElement(cardPosElem, card);
+}
+function mapCardIdToGridCell(card) {
+    if(card.id == 1) {
+        return '.card-pos-a'
+    } else if(card.id == 2) {
+        return '.card-pos-b'
+    } else if(card.id == 3) {
+        return '.card-pos-c'
+    } else if(card.id == 4) {
+        return '.card-pos-d'
+    }
 }
